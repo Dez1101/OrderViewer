@@ -1,0 +1,6 @@
+@OrderViewer.API_HostAddress = http://localhost:5134
+
+GET {{OrderViewer.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
