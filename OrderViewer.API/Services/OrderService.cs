@@ -14,6 +14,14 @@ namespace OrderViewer.API.Services
 
         public async Task<List<OrderDto>> GetFilteredOrdersAsync(FilterOrdersDto filter)
         {
+            var validSortFields = new[] { "customername", "createddate", "total" };
+            if (!string.IsNullOrWhiteSpace(filter.SortBy) &&
+                !validSortFields.Contains(filter.SortBy.ToLower()))
+            {
+                filter.SortBy = "createddate"; // default fallback
+                filter.SortDirection = "asc";
+            }
+
             var orders = await _repo.GetFilteredOrdersAsync(filter);
             return orders.Select(o => new OrderDto
             {

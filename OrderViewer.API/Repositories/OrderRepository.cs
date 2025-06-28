@@ -29,6 +29,19 @@ namespace OrderViewer.API.Repositories
             if (filter.MaxTotal.HasValue)
                 query = query.Where(o => o.Total <= filter.MaxTotal.Value);
 
+            // Sorting
+            if (!string.IsNullOrWhiteSpace(filter.SortBy))
+            {
+                bool ascending = filter.SortDirection?.ToLower() != "desc";
+                query = filter.SortBy.ToLower() switch
+                {
+                    "customername" => ascending ? query.OrderBy(o => o.CustomerName) : query.OrderByDescending(o => o.CustomerName),
+                    "createddate" => ascending ? query.OrderBy(o => o.CreatedDate) : query.OrderByDescending(o => o.CreatedDate),
+                    "total" => ascending ? query.OrderBy(o => o.Total) : query.OrderByDescending(o => o.Total),
+                    _ => query.OrderBy(o => o.Id) // default sort
+                };
+            }
+
             return await query.ToListAsync();
         }
 
