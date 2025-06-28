@@ -1,11 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using OrderViewer.API.Data;
+using OrderViewer.API.Repositories;
+using OrderViewer.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<OrderViewerDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("OrderViewerConnectionStr")));
+
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
