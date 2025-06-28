@@ -6,5 +6,6 @@ namespace OrderViewer.API.Services
     {
         Task<List<OrderDto>> GetFilteredOrdersAsync(FilterOrdersDto filter);
         Task<OrderDetailsDto?> GetOrderDetailsAsync(Guid id);
+        Task<bool> MarkAsPaidAsync(Guid id);
     }
 }

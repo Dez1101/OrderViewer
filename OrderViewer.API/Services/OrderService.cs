@@ -47,7 +47,14 @@ namespace OrderViewer.API.Services
                 }).ToList()
             };
         }
+        public async Task<bool> MarkAsPaidAsync(Guid id)
+        {
+            var order = await _repo.GetByIdAsync(id);
+            if (order == null) return false;
 
+            await _repo.MarkAsPaidAsync(id);
+            return true;
+        }
     }
 
 }
