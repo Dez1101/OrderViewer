@@ -17,10 +17,10 @@ namespace OrderViewer.API.Controllers
             _service = service;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetFilteredOrders()
+        [HttpPost("filter")]
+        public async Task<IActionResult> GetFilteredOrders([FromBody] FilterOrdersDto filter)
         {
-            var result = await _service.GetFilteredOrdersAsync();
+            var result = await _service.GetFilteredOrdersAsync(filter);
             return Ok(ApiResponse<List<OrderDto>>.SuccessResponse(result));
         }
 

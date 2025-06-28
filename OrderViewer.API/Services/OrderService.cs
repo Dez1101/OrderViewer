@@ -12,9 +12,9 @@ namespace OrderViewer.API.Services
             _repo = repo;
         }
 
-        public async Task<List<OrderDto>> GetFilteredOrdersAsync()
+        public async Task<List<OrderDto>> GetFilteredOrdersAsync(FilterOrdersDto filter)
         {
-            var orders = await _repo.GetFilteredOrdersAsync();
+            var orders = await _repo.GetFilteredOrdersAsync(filter);
             return orders.Select(o => new OrderDto
             {
                 Id = o.Id,
