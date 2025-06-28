@@ -14,9 +14,20 @@ namespace OrderViewer.API.Repositories
             _context = context;
         }
 
-        public async Task<List<Order>> GetFilteredOrdersAsync()
+        public async Task<List<Order>> GetFilteredOrdersAsync(FilterOrdersDto filter)
         {
             var query = _context.Orders.Include(o => o.Items).AsQueryable();
+
+            if (filter.StartDate.HasValue)
+                query = query.Where(o => o.CreatedDate >= filter.StartDate.Value);
+            if (filter.EndDate.HasValue)
+                query = query.Where(o => o.CreatedDate <= filter.EndDate.Value);
+            if (filter.Statuses?.Any() == true)
+                query = query.Where(o => filter.Statuses.Contains(o.Status));
+            if (filter.MinTotal.HasValue)
+                query = query.Where(o => o.Total >= filter.MinTotal.Value);
+            if (filter.MaxTotal.HasValue)
+                query = query.Where(o => o.Total <= filter.MaxTotal.Value);
 
             return await query.ToListAsync();
         }
