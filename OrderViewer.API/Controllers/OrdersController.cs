@@ -32,7 +32,16 @@ namespace OrderViewer.API.Controllers
                 return NotFound(ApiResponse<string>.Fail("Order not found"));
             return Ok(ApiResponse<OrderDetailsDto>.SuccessResponse(result));
         }
-        
+
+        [HttpPost("{id}/mark-paid")]
+        public async Task<IActionResult> MarkAsPaid(Guid id)
+        {
+            var success = await _service.MarkAsPaidAsync(id);
+            if (!success)
+                return NotFound(ApiResponse<string>.Fail("Order not found"));
+            return Ok(ApiResponse<string>.SuccessResponse("Order marked as paid"));
+        }
+
     }
 
 }

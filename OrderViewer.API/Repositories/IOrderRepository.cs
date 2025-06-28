@@ -7,5 +7,6 @@ namespace OrderViewer.API.Repositories
     {
         Task<List<Order>> GetFilteredOrdersAsync(FilterOrdersDto filter);
         Task<Order?> GetByIdAsync(Guid id);
+        Task MarkAsPaidAsync(Guid id);
     }
 }
