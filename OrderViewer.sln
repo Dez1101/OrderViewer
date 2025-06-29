@@ -5,6 +5,8 @@ VisualStudioVersion = 17.13.35913.81 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderViewer.API", "OrderViewer.API\OrderViewer.API.csproj", "{F68487BC-3E31-4331-ABF4-54F5CCC36877}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderViewerAPI.Tests", "OrderViewerAPI.Tests\OrderViewerAPI.Tests.csproj", "{3BE19359-B4E0-47CC-B2E4-59A7E44797AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F68487BC-3E31-4331-ABF4-54F5CCC36877}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F68487BC-3E31-4331-ABF4-54F5CCC36877}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F68487BC-3E31-4331-ABF4-54F5CCC36877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BE19359-B4E0-47CC-B2E4-59A7E44797AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BE19359-B4E0-47CC-B2E4-59A7E44797AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BE19359-B4E0-47CC-B2E4-59A7E44797AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BE19359-B4E0-47CC-B2E4-59A7E44797AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
