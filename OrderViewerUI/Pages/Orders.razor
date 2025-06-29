@@ -1,0 +1,94 @@
+﻿@page "/orders"
+@using OrderViewerUI.Models
+@using OrderViewerUI.Services
+@inject OrderService OrderService
+
+<h2>Orders</h2>
+
+@if (orders == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <p><b>@orders.Count</b> orders found. Total: <b>@orders.Sum(o => o.Total)</b></p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Created</th>
+                <th>Paid</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var order in orders)
+        {
+            <tr @onclick="() => LoadDetails(order.Id)" style="cursor:pointer">
+                <td>@order.Id.ToString().Substring(0, 6)</td>
+                <td>@order.CustomerName</td>
+                <td>@order.Status</td>
+                <td>@order.Total.ToString("C")</td>
+                <td>@order.CreatedDate.ToShortDateString()</td>
+                <td>@(order.IsPaid ? "Yes" : "No")</td>
+                <td>
+                    @if (!order.IsPaid)
+                    {
+                        <button class="btn btn-sm btn-success" @onclick:stopPropagation="true" @onclick="() => MarkPaid(order.Id)">Mark Paid</button>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@if (selectedOrder != null)
+{
+    <h4>Order Details</h4>
+    <ul>
+        @foreach (var item in selectedOrder.Items)
+        {
+            <li>@item.ProductName x @item.Quantity @(@item.Price.ToString("C"))</li>
+
+        }
+    </ul>
+}
+
+@code {
+    private List<OrderDto>? orders;
+    private OrderDetailsDto? selectedOrder;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var filter = new FilterOrdersDto
+            {
+                StartDate = DateTime.Today.AddMonths(-1),
+                EndDate = DateTime.Today,
+                Statuses = new[] { "Pending", "Processing", "Shipped", "Cancelled" },
+                MinTotal = 0,
+                MaxTotal = 10000
+            };
+        orders = await OrderService.GetOrdersAsync(filter);
+    }
+
+    private async Task LoadDetails(Guid id)
+    {
+        selectedOrder = await OrderService.GetOrderDetailsAsync(id);
+    }
+
+    private async Task MarkPaid(Guid id)
+    {
+        var ok = await OrderService.MarkAsPaidAsync(id);
+        if (ok)
+        {
+            var order = orders?.FirstOrDefault(o => o.Id == id);
+            if (order != null) order.IsPaid = true;
+            StateHasChanged();
+        }
+    }
+}
