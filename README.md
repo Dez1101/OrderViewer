@@ -31,8 +31,9 @@ A lightweight e-commerce order viewer app built with:
 ## 🚀 Setup & Run Instructions
 
 ### 1. **Clone the Repo**
-bash
+```bash
 git clone https://github.com/Dez1101/OrderViewer.git
+```
 
 ### 2. Configure SQL Server
 - Open appsettings.json file of OrderViewer.API and make changes to the connection string using the instructions after the string
