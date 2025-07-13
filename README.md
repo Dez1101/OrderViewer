@@ -37,10 +37,11 @@ git clone https://github.com/Dez1101/OrderViewer.git
 
 ### 2. Configure SQL Server
 - Open appsettings.json file of OrderViewer.API and make changes to the connection string using the instructions after the string
-bash
+```bash
 "ConnectionStrings": {
   "OrderViewerConnectionStr": "Server=SQLSERERNAME;Database=OrderViewerDb;Trusted_Connection=True;TrustServerCertificate=True;"
 }
+```
 - NB: in the connection string above, please replace the word SQLSERERNAME with your actual sql server name that is on your local or server.
 ### How to Find Your SQL Server Name
 
